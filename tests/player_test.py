@@ -11,6 +11,11 @@ def test_valid_uuid_no_name() -> None:
     _ = Player(uuid=TEST_UUID)
 
 
+def test_valid_uuid_no_dash() -> None:
+    """Sometimes you don't have dashes"""
+    _ = Player(uuid=TEST_UUID.replace("-", ""))
+
+
 def test_valid_name_no_uuid() -> None:
     """Give just a name, success"""
     _ = Player(mc_name=TEST_NAME)
