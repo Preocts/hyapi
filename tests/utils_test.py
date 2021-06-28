@@ -27,6 +27,7 @@ def test_is_valid_uuid(uuid: str, expected: bool) -> None:
         ("This_is_valid", True),
         ("123", True),
         ("This is bad", False),
+        ("", False),
     ),
 )
 def test_validate_user_names(name: str, expected: bool) -> None:

@@ -5,6 +5,7 @@ Author: Preocts <Preocts#8196>
 """
 from typing import Optional
 
+from hyapi.utils import is_valid_java_name
 from hyapi.utils import is_valid_uuid
 from hyapi.uuidlookup import UUIDLookup
 from secretbox.loadenv import LoadEnv
@@ -34,6 +35,9 @@ class Player:
 
         if self.uuid is not None and not is_valid_uuid(self.uuid):
             raise ValueError("Invalid UUID provided")
+
+        if self.mc_name is not None and not is_valid_java_name(self.mc_name):
+            raise ValueError("Invalid Java Minecraft name provided")
 
         elif self.uuid is None and self.mc_name is not None:
             self.uuid = self.lookup.resolve_by_name(self.mc_name).id

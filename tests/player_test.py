@@ -27,6 +27,12 @@ def test_invalid_uuid() -> None:
         _ = Player(uuid="")
 
 
+def test_invalid_name() -> None:
+    """Raise ValueError"""
+    with pytest.raises(ValueError):
+        _ = Player(mc_name="Invalid Name")
+
+
 def test_no_args() -> None:
     """Raise ValueError"""
     with pytest.raises(ValueError):
