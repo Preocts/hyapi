@@ -7,9 +7,6 @@ from __future__ import annotations
 
 import json
 import logging
-from string import ascii_lowercase
-from string import ascii_uppercase
-from string import digits
 from typing import Any
 from typing import Dict
 from typing import NamedTuple
@@ -50,8 +47,6 @@ class UUIDLookup:
 
     def resolve_by_name(self, name: str) -> LookupResult:
         """Resolve a player name to UUID"""
-        if not self._is_valid_name(name):
-            raise ValueError(f"'{name}' is not a valid Java Editor username")
 
         self.logger.debug("Resolving name: '%s'", name)
         endpoint = self.RESOLVER_URL + name
@@ -67,17 +62,3 @@ class UUIDLookup:
             result_json = {}
 
         return self.LookupResult.from_dict(result_json)
-
-    @staticmethod
-    def _is_valid_name(name: str) -> bool:
-        """3-16 characters, no spaces, a-z, A-Z, 0-9, _"""
-        if len(name) > 16:
-            return False
-
-        allowed_characters = ascii_lowercase + ascii_uppercase + digits + "_"
-
-        for char in name:
-            if char not in list(allowed_characters):
-                return False
-
-        return True
