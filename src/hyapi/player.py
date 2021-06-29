@@ -25,8 +25,8 @@ class Player:
         Creates an instance of the player class, at least one arg is required
 
         Args:
-            uuid: [optional] Your minecraft UUID
-            mc_name: [optional] Your minecraft player name (for UUID lookup)
+            uuid: Your minecraft UUID
+            mc_name: Your minecraft player name (for UUID lookup)
 
         """
         self._secrets = LoadEnv(auto_load=True)

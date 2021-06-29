@@ -51,10 +51,7 @@ class UUIDLookup:
         self.logger.debug("Resolving name: '%s'", name)
         endpoint = self.RESOLVER_URL + name
 
-        result = self.http_client.request(
-            "GET",
-            endpoint,
-        )
+        result = self.http_client.request("GET", endpoint)
 
         try:
             result_json = json.loads(result.data.decode("utf-8"))
