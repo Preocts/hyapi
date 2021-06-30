@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://api.mojang.com/users/profiles/minecraft/Preocts
+  response:
+    body:
+      string: '{"name":"Preocts","id":"e545401364504b3d947903b4f602a3a5"}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 30 Jun 2021 03:37:05 GMT
+      Server:
+      - Restlet-Framework/2.4.1
+      Vary:
+      - Accept-Charset, Accept-Encoding, Accept-Language, Accept
+      Via:
+      - 1.1 e01091b7c39d5f291f684f22eebc396f.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - 0jMKDjiLXXbuQgw75XJoPRYJe2AFnY7JusCgPVS_L92YWUmz8s2PoA==
+      X-Amz-Cf-Pop:
+      - ORD51-C2
+      X-Cache:
+      - Miss from cloudfront
+    status:
+      code: 200
+      message: OK
+version: 1
