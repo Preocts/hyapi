@@ -1,44 +1,20 @@
 """Unit tests for player.py"""
+from typing import Generator
+
 import pytest
 from hyapi.player import Player
 
-TEST_NAME = "jeb"
-TEST_UUID = "f498513c-e8c8-4773-be26-ecfc7ed5185d"
+# TODO: VCR Recording needed
 
 
-def test_valid_uuid_no_name() -> None:
-    """Give just a uuid, success"""
-    _ = Player(uuid=TEST_UUID)
+@pytest.fixture(scope="function", name="player")
+def fixture_player() -> Generator[Player, None, None]:
+    """Build a fixture"""
+    player = Player()
+
+    yield player
 
 
-def test_valid_uuid_no_dash() -> None:
-    """Sometimes you don't have dashes"""
-    _ = Player(uuid=TEST_UUID.replace("-", ""))
-
-
-def test_valid_name_no_uuid() -> None:
-    """Give just a name, success"""
-    _ = Player(mc_name=TEST_NAME)
-
-
-def test_valid_name_and_uuid() -> None:
-    """Give both, success"""
-    _ = Player(uuid=TEST_UUID, mc_name=TEST_NAME)
-
-
-def test_invalid_uuid() -> None:
-    """Raise ValueError"""
-    with pytest.raises(ValueError):
-        _ = Player(uuid="")
-
-
-def test_invalid_name() -> None:
-    """Raise ValueError"""
-    with pytest.raises(ValueError):
-        _ = Player(mc_name="Invalid Name")
-
-
-def test_no_args() -> None:
-    """Raise ValueError"""
-    with pytest.raises(ValueError):
-        _ = Player()
+def test_hold(player: Player) -> None:
+    """Holding pattern"""
+    assert not player.current_player

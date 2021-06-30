@@ -3,44 +3,24 @@ Player object
 
 Author: Preocts <Preocts#8196>
 """
-from typing import Optional
+import logging
 
-from hyapi.utils import is_valid_java_name
-from hyapi.utils import is_valid_uuid
+from hyapi.authuser import AuthUser
 from hyapi.uuidlookup import UUIDLookup
-from secretbox.loadenv import LoadEnv
 
 
-class Player:
+class Player(AuthUser):
     """Player object"""
 
     lookup = UUIDLookup()
+    logger = logging.getLogger("Player")
 
-    def __init__(
-        self,
-        uuid: Optional[str] = None,
-        mc_name: Optional[str] = None,
-    ) -> None:
-        """
-        Creates an instance of the player class, at least one arg is required
+    def __init__(self) -> None:
+        """Creates an instance of the player class"""
+        super().__init__()
 
-        Args:
-            uuid: Your minecraft UUID
-            mc_name: Your minecraft player name (for UUID lookup)
+        self.is_valid_user
 
-        """
-        self._secrets = LoadEnv(auto_load=True)
-        self.uuid = uuid
-        self.mc_name = mc_name
+        self.logger.debug("Player object initialized.")
 
-        if self.uuid is not None and not is_valid_uuid(self.uuid):
-            raise ValueError("Invalid UUID provided")
-
-        if self.mc_name is not None and not is_valid_java_name(self.mc_name):
-            raise ValueError("Invalid Java Minecraft name provided")
-
-        elif self.uuid is None and self.mc_name is not None:
-            self.uuid = self.lookup.resolve_by_name(self.mc_name).id
-
-        if self.uuid is None:
-            raise ValueError("Unable to resolve UUID")
+        self.current_player = ""
