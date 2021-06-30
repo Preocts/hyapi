@@ -14,6 +14,14 @@ def test_lookup_by_name() -> None:
     assert result.id == TEST_UUID.replace("-", "")
 
 
+def test_lookup_by_uuid() -> None:
+    lookup = UUIDLookup()
+
+    result = lookup.resolve_by_uuid(TEST_UUID)
+
+    assert result.name == TEST_NAME
+
+
 def test_no_results() -> None:
     """Use an invalid name to capture failure"""
     lookup = UUIDLookup()
