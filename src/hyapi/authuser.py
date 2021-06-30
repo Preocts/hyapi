@@ -25,6 +25,7 @@ class AuthUser:
     def is_valid_user(self) -> bool:
         """Returns true if the HYAPI_USERUUID is valid"""
         if self.__is_valid is None:
+
             self.__is_valid = self._validate_user()
 
         return self.__is_valid

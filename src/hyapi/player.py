@@ -6,13 +6,11 @@ Author: Preocts <Preocts#8196>
 import logging
 
 from hyapi.authuser import AuthUser
-from hyapi.uuidlookup import UUIDLookup
 
 
 class Player(AuthUser):
     """Player object"""
 
-    lookup = UUIDLookup()
     logger = logging.getLogger("Player")
 
     def __init__(self) -> None:

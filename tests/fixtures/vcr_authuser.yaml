@@ -1,0 +1,72 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://sessionserver.mojang.com/session/minecraft/profile/f498513c-e8c8-4773-be26-ecfc7ed5185d
+  response:
+    body:
+      string: "{\n  \"id\" : \"f498513ce8c84773be26ecfc7ed5185d\",\n  \"name\" : \"jeb\",\n
+        \ \"properties\" : [ {\n    \"name\" : \"textures\",\n    \"value\" : \"ewogICJ0aW1lc3RhbXAiIDogMTYyNTAyNDQ4Mzk2NywKICAicHJvZmlsZUlkIiA6ICJmNDk4NTEzY2U4Yzg0NzczYmUyNmVjZmM3ZWQ1MTg1ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJqZWIiLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWE0YWY3MTg0NTVkNGFhYjUyOGU3YTYxZjg2ZmEyNWU2YTM2OWQxNzY4ZGNiMTNmN2RmMzE5YTcxM2ViODEwYiIKICAgIH0KICB9Cn0=\"\n
+        \ } ],\n  \"legacy\" : true\n}"
+    headers:
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '518'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 30 Jun 2021 03:41:23 GMT
+      Via:
+      - 1.1 15ce0329949ac28ffe4b40b091e277ef.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - ZQhUPaQhNapYjQu6EF__1PX5u-1sgPdvErKTPc5-JPpm7aGjgDpk-g==
+      X-Amz-Cf-Pop:
+      - ORD51-C1
+      X-Cache:
+      - Miss from cloudfront
+      x-minecraft-request-id:
+      - 384d9c64e6ebacee
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://api.mojang.com/users/profiles/minecraft/jeb
+  response:
+    body:
+      string: '{"name":"jeb","id":"f498513ce8c84773be26ecfc7ed5185d"}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '54'
+      Content-Type:
+      - application/json
+      Date:
+      - Wed, 30 Jun 2021 03:44:37 GMT
+      Server:
+      - Restlet-Framework/2.4.1
+      Vary:
+      - Accept-Charset, Accept-Encoding, Accept-Language, Accept
+      Via:
+      - 1.1 34e660e44c1e373f9aead85077545872.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - ZYDHlLfOgIVRnJtbRYwza0aDQaxko7LuJZtoQL0e6KkMvnS5U9atsA==
+      X-Amz-Cf-Pop:
+      - ORD51-C2
+      X-Cache:
+      - Miss from cloudfront
+    status:
+      code: 200
+      message: OK
+version: 1

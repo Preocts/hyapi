@@ -1,5 +1,4 @@
 """Unit tests for player.py"""
-import os
 from typing import Generator
 from unittest.mock import patch
 
@@ -7,17 +6,13 @@ import pytest
 import vcr
 from hyapi.player import Player
 
-ENV_FILE = ".env"
-ENV_RENAME = ".env_hold_for_tests"
-
-TEST_ENV = {
-    "HYAPI_USERUUID": "Preocts",
-}
+TEST_ENV = {"HYAPI_USERUUID": "Preocts"}
+RECORDING_MODE = False
 
 recorder = vcr.VCR(
     serializer="yaml",
     cassette_library_dir="tests/fixtures",
-    record_mode="once",
+    record_mode="new_episodes" if RECORDING_MODE else "once",
     match_on=["uri", "method"],
 )
 
@@ -25,21 +20,20 @@ recorder = vcr.VCR(
 @pytest.fixture(scope="function", name="player")
 def fixture_player() -> Generator[Player, None, None]:
     """Build a fixture"""
-    try:
-        if os.path.isfile(ENV_FILE):
-            os.rename(ENV_FILE, ENV_RENAME)
-        with recorder.use_cassette("vcr_layer_test.yaml"):
+    with recorder.use_cassette("vcr_player.yaml"):
 
-            with patch.dict(os.environ, TEST_ENV):
+        with patch.object(Player, "is_valid_user", return_value=True):
 
-                player = Player()
+            player = Player()
 
-                yield player
-    finally:
-        if os.path.isfile(ENV_RENAME):
-            os.rename(ENV_RENAME, ENV_FILE)
+        player.user_uuid = TEST_ENV["HYAPI_USERUUID"]
+
+        yield player
 
 
 def test_hold(player: Player) -> None:
     """Holding pattern"""
+
     assert not player.current_player
+
+    assert player.is_valid_user
