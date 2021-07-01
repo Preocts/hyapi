@@ -19,6 +19,7 @@ class AuthUser:
         self.user_name = ""
         self.user_apikey = secrets.get("HYAPI_APIKEY")
         if not self.user_apikey:
+            self.logger.critical("Missing environment var: HYAPI_APIKEY")
             raise ValueError("Missing 'HYAPI_APIKEY'.")
 
     def is_valid_user(self, id: str) -> bool:
@@ -27,6 +28,7 @@ class AuthUser:
 
             if is_valid_java_name(id):
 
+                self.logger.debug("Resolving by name: %s", id)
                 result = self.uuid_client.resolve_by_name(id)
 
             else:
@@ -35,8 +37,10 @@ class AuthUser:
 
         else:
 
+            self.logger.debug("Resolving by uuid: %s", id)
             result = self.uuid_client.resolve_by_uuid(id)
 
+        self.logger.info("Validation result: %s", result)
         self.user_uuid = result.id if result.id else ""
         self.user_name = result.name if result.name else ""
 

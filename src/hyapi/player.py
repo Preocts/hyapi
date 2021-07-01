@@ -51,7 +51,7 @@ class Player(AuthUser):
             self._loaded = PlayerObject.from_dict(self.jsonify(result.data))
 
             if self._loaded.raw_data:
-                self.logger.debug("Player '%s' loaded", self._loaded.uuid)
+                self.logger.info("Player '%s' loaded", self._loaded.uuid)
             else:
                 self.logger.warning("Could not load player: '%s'", id)
 
