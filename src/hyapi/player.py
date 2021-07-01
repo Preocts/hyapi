@@ -1,5 +1,5 @@
 """
-Player object
+Player object from Hypixel public API
 
 Author: Preocts <Preocts#8196>
 """

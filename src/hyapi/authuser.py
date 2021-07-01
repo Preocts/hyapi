@@ -1,3 +1,8 @@
+"""
+Base class for authorization and player lookup
+
+Author: Preocts <Preocts#8196>
+"""
 import logging
 
 from hyapi.utils import is_valid_java_name
@@ -7,7 +12,7 @@ from secretbox.loadenv import LoadEnv
 
 
 class AuthUser:
-    """User authorization and authentication"""
+    """User authorization and lookup"""
 
     logger = logging.getLogger("AuthUser")
     uuid_client = UUIDLookup()

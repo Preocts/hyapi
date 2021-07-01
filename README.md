@@ -6,10 +6,83 @@
 
 # HyAPI
 
-Hypixel API Wrapper
+Hypixel API Wrapper - Early Development
+
+Picked up for pattern exercises, not sure how far I'll take this.  All name lookups are Minecraft Java Edition accounts.
 
 ### Requirements
-- Python >= 3.9
+- [Python](https://python.org) >= 3.9
+- [secretbox](https://pypi.org/project/secretbox) >= 1.1.0
+- [urllib3](https://pypi.org/project/urllib3/) >= 1.26.6
+
+---
+
+Install instructions: To be created
+
+```
+pip install git+https://github.com/Preocts/hyapi.git
+```
+
+---
+
+## Mojang API
+
+Uses Mojang's public API to resolve player account data
+
+### UUIDLookup
+
+```py
+from hyapi.uuidlookup import UUIDLookup
+
+lookup_client = UUIDLookup()
+
+# Resolve player from UUID
+player = lookup_client.resolve_by_uuid("[UUID]")
+
+# Resolve player from displayname (current)
+player = lookup_client.reslove_by_name("[DisplayName]")
+
+# Will have values if valid, will be empty strings if not
+print(player.id)
+print(player.uuid)
+```
+
+
+---
+
+## Hypixel API
+
+Uses Hypixel's public API to pull player data. Requires an API key.
+
+### `.env`
+
+Create a .env file in the root directory of your project. In it add the following line with the API key from Hypixel. To get an API key you must log into the Hypixel servers (in game) and type `/api` in the game chat.
+
+```
+HYAPI_APIKEY=[API KEY]
+```
+
+Alternative: Set an environment variable of the same name
+
+### Player
+
+```py
+from hyapi.player import Player
+
+# Create Player instance
+player = Player()
+
+# Load player by UUID or display name
+player.load("[UUID or dispaly name]")
+
+# Results will be empty if load fails
+print(player.read.displayname)
+
+# Raw JSON response from Hypixel can be accessed
+print(player.read.raw_data)
+```
+
+---
 
 ## Local developer installation
 
