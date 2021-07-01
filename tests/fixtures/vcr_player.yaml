@@ -19,19 +19,66 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jun 2021 03:37:05 GMT
+      - Thu, 01 Jul 2021 01:55:55 GMT
       Server:
       - Restlet-Framework/2.4.1
       Vary:
       - Accept-Charset, Accept-Encoding, Accept-Language, Accept
       Via:
-      - 1.1 e01091b7c39d5f291f684f22eebc396f.cloudfront.net (CloudFront)
+      - 1.1 83ac07892fa0e0fd0b9db6e878d848aa.cloudfront.net (CloudFront)
       X-Amz-Cf-Id:
-      - 0jMKDjiLXXbuQgw75XJoPRYJe2AFnY7JusCgPVS_L92YWUmz8s2PoA==
+      - 0dn0oVUoQnPC7cphWIL6-_qEQaQD_uLs2hYKVhH2-gwA0LfO4RYP6Q==
       X-Amz-Cf-Pop:
-      - ORD51-C2
+      - ORD53-C3
       X-Cache:
       - Miss from cloudfront
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+    method: GET
+    uri: https://api.hypixel.net/player?uuid=e545401364504b3d947903b4f602a3a5
+  response:
+    body:
+      string: '{"success":true,"player":{"_id":"60d7ed8a8ddd36626aef50b8","uuid":"e545401364504b3d947903b4f602a3a5","displayname":"Preocts","firstLogin":1624763786867,"knownAliases":["Preocts"],"knownAliasesLower":["preocts"],"lastLogin":1624763786867,"playername":"preocts","achievementsOneTime":["general_first_join"],"lastLogout":1624763889274}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - BYPASS
+      CF-RAY:
+      - 667c03d109152a42-ORD
+      Cache-Control:
+      - private, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 01 Jul 2021 01:55:55 GMT
+      Expect-CT:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      RateLimit-Limit:
+      - '120'
+      RateLimit-Remaining:
+      - '119'
+      RateLimit-Reset:
+      - '17'
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      alt-svc:
+      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443";
+        ma=86400
+      cf-request-id:
+      - 0b0160b6a400002a4219a13000000001
     status:
       code: 200
       message: OK

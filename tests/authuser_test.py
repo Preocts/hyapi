@@ -1,13 +1,16 @@
 """Unit tests for authuser.py"""
+import os
 from typing import Generator
 from unittest.mock import patch
 
 import pytest
 import vcr
 from hyapi.authuser import AuthUser
+from hyapi.authuser import LoadEnv
 
 TEST_NAME = "jeb"
 TEST_UUID = "f498513c-e8c8-4773-be26-ecfc7ed5185d"
+INVALID_NAME = "wellthistotallyisn'tgoing towork"
 RECORDING_MODE = False
 
 recorder = vcr.VCR(
@@ -23,41 +26,39 @@ def fixture_auth() -> Generator[AuthUser, None, None]:
     """Build a fixure"""
     with recorder.use_cassette("vcr_authuser.yaml"):
 
-        auth = AuthUser()
+        with patch.dict(os.environ, {"HYAPI_APIKEY": "mock"}):
 
-        yield auth
+            auth = AuthUser()
+
+            yield auth
 
 
-def test_uuid_no_name(auth: AuthUser) -> None:
-    """Valid UUID, no name"""
-    auth.user_uuid = TEST_UUID
-    auth.user_name = ""
+def test_uuid(auth: AuthUser) -> None:
+    """Valid UUID"""
 
-    assert auth.is_valid_user
+    assert auth.is_valid_user(TEST_UUID)
+    assert auth.user_uuid
     assert auth.user_name
 
 
-def test_name_no_uuid(auth: AuthUser) -> None:
+def test_name(auth: AuthUser) -> None:
     """Valid Name, no UUID"""
-    auth.user_uuid = TEST_NAME
-    auth.user_name = ""
 
-    assert auth.is_valid_user
+    assert auth.is_valid_user(TEST_NAME)
+    assert auth.user_uuid
     assert auth.user_name
 
 
-def test_invalid_uuid(auth: AuthUser) -> None:
+def test_invalid_id(auth: AuthUser) -> None:
     """Invalid will raise"""
-    auth.user_uuid = "wellthistotallyisn'tgoing towork"
 
     with pytest.raises(ValueError):
-        auth.is_valid_user
+        auth.is_valid_user(INVALID_NAME)
 
 
-def test_static_value(auth: AuthUser) -> None:
-    """Once we validate, don't re-validate same object"""
-    with patch.object(auth, "_validate_user", return_value=False) as patched:
-        assert not auth.is_valid_user
-        assert not auth.is_valid_user
+def test_missing_api_key() -> None:
+    with patch.object(LoadEnv, "get", return_value=""):
 
-        assert patched.call_count == 1
+        with pytest.raises(ValueError):
+
+            _ = AuthUser()

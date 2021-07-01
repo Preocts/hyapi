@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 from hyapi.utils import is_valid_java_name
 from hyapi.utils import is_valid_uuid
@@ -14,37 +13,29 @@ class AuthUser:
     uuid_client = UUIDLookup()
 
     def __init__(self) -> None:
-        """On initialization, pulls API key and user's name/uuid from .env file"""
+        """On initialization, pulls API key from .env file"""
         secrets = LoadEnv(auto_load=True)
-        self.user_uuid = secrets.get("HYAPI_USERUUID")
+        self.user_uuid = ""
         self.user_name = ""
         self.user_apikey = secrets.get("HYAPI_APIKEY")
-        self.__is_valid: Optional[bool] = None
+        if not self.user_apikey:
+            raise ValueError("Missing 'HYAPI_APIKEY'.")
 
-    @property
-    def is_valid_user(self) -> bool:
-        """Returns true if the HYAPI_USERUUID is valid"""
-        if self.__is_valid is None:
+    def is_valid_user(self, id: str) -> bool:
+        """Validates user uuid, if name then looks up UUID"""
+        if not is_valid_uuid(id):
 
-            self.__is_valid = self._validate_user()
+            if is_valid_java_name(id):
 
-        return self.__is_valid
-
-    def _validate_user(self) -> bool:
-        """Validates HYAPI_USERUUID, if name then looks up UUID"""
-        if not is_valid_uuid(self.user_uuid):
-
-            if is_valid_java_name(self.user_uuid):
-
-                result = self.uuid_client.resolve_by_name(self.user_uuid)
+                result = self.uuid_client.resolve_by_name(id)
 
             else:
 
-                raise ValueError(f"Invalid 'HYAPI_USERUUID': '{self.user_uuid}'")
+                raise ValueError(f"Invalid id provided: '{id}'")
 
         else:
 
-            result = self.uuid_client.resolve_by_uuid(self.user_uuid)
+            result = self.uuid_client.resolve_by_uuid(id)
 
         self.user_uuid = result.id if result.id else ""
         self.user_name = result.name if result.name else ""
