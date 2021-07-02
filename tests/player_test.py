@@ -33,7 +33,7 @@ def fixture_player() -> Generator[Player, None, None]:
 def test_load_player(player: Player) -> None:
     """load player"""
 
-    player.load(TEST_UUID)
+    player.load_data(TEST_UUID)
 
     assert player.read.displayname == TEST_UUID
     assert player.read.raw_data
@@ -44,7 +44,7 @@ def test_load_error(player: Player) -> None:
 
     with patch.object(player, "jsonify", return_value={}):
 
-        player.load(TEST_UUID)
+        player.load_data(TEST_UUID)
 
         assert not player.read.displayname
         assert not player.read.raw_data
@@ -72,6 +72,6 @@ def test_jsonify_invalid(player: Player) -> None:
 def test_invalid_id(player: Player) -> None:
     """Return empty object"""
     with patch.object(player, "is_valid_user", return_value=False):
-        player.load(TEST_UUID)
+        player.load_data(TEST_UUID)
 
     assert not player.read.raw_data
