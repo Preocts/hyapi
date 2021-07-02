@@ -91,7 +91,7 @@ interactions:
     uri: https://api.hypixel.net/friends?uuid=e545401364504b3d947903b4f602a3a5
   response:
     body:
-      string: '{"success":true,"uuid":"e545401364504b3d947903b4f602a3a5","records":[]}'
+      string: '{"success":true,"uuid":"e545401364504b3d947903b4f602a3a5","records":[{"_id": "59cad4a80cf2eb0c3019ec10","uuidSender": "0a89731cc40b4c93801f96aa35bdf018","uuidReceiver": "8f0bf974195a4441b2314f43ca55f6cc","started": 1506464936585}]}'
     headers:
       Accept-Ranges:
       - bytes
