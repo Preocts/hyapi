@@ -29,7 +29,7 @@ class Player(AuthUser):
         self._loaded = PlayerData()
 
     @property
-    def read(self) -> PlayerData:
+    def read_data(self) -> PlayerData:
         """Returns loaded PlayerData"""
         return self._loaded
 
