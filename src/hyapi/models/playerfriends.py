@@ -35,8 +35,9 @@ class PlayerFriends(NamedTuple):
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> PlayerFriends:
         """Create PlayerObject from dictionary"""
+        records = [Friend.from_record(record) for record in data.get("records", [])]
         return cls(
             uuid=data.get("uuid", ""),
-            records=[Friend.from_record(record) for record in data.get("records", [])],
+            records=records,
             raw_data=data,
         )

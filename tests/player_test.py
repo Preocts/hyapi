@@ -30,8 +30,8 @@ def fixture_player() -> Generator[Player, None, None]:
             yield player
 
 
-def test_load_player(player: Player) -> None:
-    """load player"""
+def test_load_player_data(player: Player) -> None:
+    """load player data"""
 
     player.load_data(TEST_UUID)
 
@@ -39,7 +39,7 @@ def test_load_player(player: Player) -> None:
     assert player.read_data.raw_data
 
 
-def test_load_error(player: Player) -> None:
+def test_load_player_data_error(player: Player) -> None:
     """Empty object"""
 
     with patch.object(player, "jsonify", return_value={}):
@@ -48,6 +48,26 @@ def test_load_error(player: Player) -> None:
 
         assert not player.read_data.displayname
         assert not player.read_data.raw_data
+
+
+def test_load_player_friends(player: Player) -> None:
+    """load player friends"""
+
+    player.load_friends(TEST_UUID)
+
+    assert player.read_friends.uuid
+    assert player.read_friends.raw_data
+
+
+def test_load_player_friends_error(player: Player) -> None:
+    """Empty object"""
+
+    with patch.object(player, "jsonify", return_value={}):
+
+        player.load_friends(TEST_UUID)
+
+        assert not player.read_friends.uuid
+        assert not player.read_friends.raw_data
 
 
 def test_jsonify_valid(player: Player) -> None:
@@ -69,9 +89,11 @@ def test_jsonify_invalid(player: Player) -> None:
     assert not result
 
 
-def test_invalid_id(player: Player) -> None:
+def test_data_invalid_id(player: Player) -> None:
     """Return empty object"""
     with patch.object(player, "is_valid_user", return_value=False):
         player.load_data(TEST_UUID)
+        player.load_friends(TEST_UUID)
 
     assert not player.read_data.raw_data
+    assert not player.read_friends.raw_data
