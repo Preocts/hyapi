@@ -73,13 +73,15 @@ from hyapi.player import Player
 player = Player()
 
 # Load player by UUID or display name
-player.load("[UUID or dispaly name]")
+player.load_data("[UUID or dispaly name]")
+player.load_friends("[UUID or display name]")
 
 # Results will be empty if load fails
-print(player.read.displayname)
+print(player.read_data.displayname)
+print(len(player.read_friends.records))
 
 # Raw JSON response from Hypixel can be accessed
-print(player.read.raw_data)
+print(player.read_data.raw_data)
 ```
 
 ---
