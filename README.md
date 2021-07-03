@@ -66,22 +66,35 @@ Alternative: Set an environment variable of the same name
 
 ### Player
 
+The Player object represents the Hypixel data for a single target player. The `.fetch_player(player_id)` method will populate the object with Data, Friends, Status, Recent Games, and Guild information.  If the provided displayname or UUId is invalid/not found an empty object is returned.
+
+The methods for accessing the information loosely follow the Hypixel public API: https://api.hypixel.net/#tag/Player-Data
+
+- `Player.fetch_player(player_id: str)` : Pull all available information from the Hypixel API
+  - `.data` : Various datapoints including displayname, rank, and stats
+  - `.friends.records` : List of Friend objects containing UUIDs of who sent the friend request and who recieved it
+  - `.status.session` : Current status information of the player
+  - `.games.games` : List of Game objects containing the player's recently played games
+  - `.guild` : If the player is in a guild the name and id is provided
+
+All attributes have `.raw_data` available which contains a `Dict[str, Any]` of the response from Hypixel API
+
 ```py
 from hyapi.player import Player
 
 # Create Player instance
+uuid = "[UUID or current display name here]"
 player = Player()
 
 # Load player by UUID or display name
-player.load_data("[UUID or dispaly name]")
-player.load_friends("[UUID or display name]")
+player.fetch_player(uuid)
 
 # Results will be empty if load fails
-print(player.read_data.displayname)
-print(len(player.read_friends.records))
-
-# Raw JSON response from Hypixel can be accessed
-print(player.read_data.raw_data)
+print(f"Display name: {player.data.displayname}")
+print(f"Current guild: {player.guild.name}")
+print(f"Number of friends: {len(player.friends.records)}")
+print(f"Currently online: {player.status.session.online}")
+print(f"Number of recent games: {len(player.games.games)}")
 ```
 
 ---
