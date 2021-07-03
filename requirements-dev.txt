@@ -72,7 +72,7 @@ pyyaml==5.4.1
     # via
     #   pre-commit
     #   vcrpy
-regex==2021.4.4
+regex==2021.7.1
     # via black
 six==1.16.0
     # via
