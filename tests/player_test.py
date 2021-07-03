@@ -41,6 +41,7 @@ def test_load_player_success(player: Player) -> None:
     assert player.friends.raw_data
     assert player.games.raw_data
     assert player.status.raw_data
+    assert player.guild.raw_data
 
 
 def test_load_player_data_error(player: Player) -> None:
@@ -55,6 +56,7 @@ def test_load_player_data_error(player: Player) -> None:
         assert not player.friends.raw_data
         assert not player.games.raw_data
         assert not player.status.raw_data
+        assert not player.guild.raw_data
 
 
 def test_jsonify_valid(player: Player) -> None:
@@ -85,3 +87,4 @@ def test_data_invalid_id(player: Player) -> None:
     assert not player.friends.raw_data
     assert not player.games.raw_data
     assert not player.status.raw_data
+    assert not player.guild.raw_data

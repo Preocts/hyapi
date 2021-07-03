@@ -13,6 +13,7 @@ from hyapi.authuser import AuthUser
 from hyapi.models.playerdata import PlayerData
 from hyapi.models.playerfriends import PlayerFriends
 from hyapi.models.playergames import PlayerGames
+from hyapi.models.playerguild import PlayerGuild
 from hyapi.models.playerstatus import PlayerStatus
 
 
@@ -23,6 +24,7 @@ class Player(AuthUser):
     FRIENDS_API = "https://api.hypixel.net/friends"
     GAMES_API = "https://api.hypixel.net/recentgames"
     STATUS_API = "https://api.hypixel.net/status"
+    GUILD_API = "https://api.hypixel.net/guild"
 
     logger = logging.getLogger("Player")
 
@@ -37,6 +39,7 @@ class Player(AuthUser):
         self._friends = PlayerFriends()
         self._games = PlayerGames()
         self._status = PlayerStatus()
+        self._guild = PlayerGuild()
 
     @property
     def data(self) -> PlayerData:
@@ -58,6 +61,11 @@ class Player(AuthUser):
         """Player's recent status"""
         return self._status
 
+    @property
+    def guild(self) -> PlayerGuild:
+        """Player's Guild information"""
+        return self._guild
+
     def fetch_player(self, player_id: str) -> None:
         """Pulls information on a player by current displayname or UUID"""
         valid = self.is_valid_user(player_id)
@@ -66,6 +74,7 @@ class Player(AuthUser):
         self._friends = self._load_friends(player_id) if valid else PlayerFriends()
         self._games = self._load_games(player_id) if valid else PlayerGames()
         self._status = self._load_status(player_id) if valid else PlayerStatus()
+        self._guild = self._load_guild(player_id) if valid else PlayerGuild()
 
     def _log_action(self, id: str, uuid: str, obj: str) -> None:
         """Logger"""
@@ -117,6 +126,17 @@ class Player(AuthUser):
         self._log_action(id, status.uuid, "Player Status")
 
         return status
+
+    def _load_guild(self, id: str) -> PlayerGuild:
+        """Loads a player's guild"""
+
+        result = self._get(self.GUILD_API)
+
+        guild = PlayerGuild.from_dict(self._jsonify(result.data))
+
+        self._log_action(id, guild.player, "Player Guild")
+
+        return guild
 
     def _jsonify(self, data: bytes) -> Dict[str, Any]:
         """Translate response bytes to dict, returns empty if fails"""

@@ -71,8 +71,6 @@ interactions:
       - '12'
       Server:
       - cloudflare
-      Transfer-Encoding:
-      - chunked
       Vary:
       - Accept-Encoding
       alt-svc:
@@ -116,8 +114,6 @@ interactions:
       - '12'
       Server:
       - cloudflare
-      Transfer-Encoding:
-      - chunked
       Vary:
       - Accept-Encoding
       alt-svc:
@@ -220,4 +216,49 @@ interactions:
     status:
       code: 200
       message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+    method: GET
+    uri: https://api.hypixel.net/guild?uuid=20455fb4737049589d3cba89d181e413
+  response:
+    body:
+      string: '{"success":false,"cause":"Missing one or more fields [id,name,player]"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      CF-Cache-Status:
+      - BYPASS
+      CF-RAY:
+      - 668d3943093c2c70-ORD
+      Cache-Control:
+      - private, max-age=0, s-maxage=0
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '71'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 03 Jul 2021 04:03:22 GMT
+      Expect-CT:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      RateLimit-Limit:
+      - '120'
+      RateLimit-Remaining:
+      - '119'
+      RateLimit-Reset:
+      - '50'
+      Server:
+      - cloudflare
+      Vary:
+      - Accept-Encoding
+      alt-svc:
+      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443";
+        ma=86400
+    status:
+      code: 400
+      message: Bad Request
 version: 1
