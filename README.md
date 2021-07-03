@@ -11,7 +11,7 @@ Hypixel API Wrapper - Early Development
 Picked up for pattern exercises, not sure how far I'll take this.  All name lookups are Minecraft Java Edition accounts.
 
 ### Requirements
-- [Python](https://python.org) >= 3.9
+- [Python](https://python.org) >= 3.8
 - [secretbox](https://pypi.org/project/secretbox) >= 1.1.0
 - [urllib3](https://pypi.org/project/urllib3/) >= 1.26.6
 
