@@ -36,11 +36,11 @@ def test_load_player_success(player: Player) -> None:
 
     player.fetch_player(TEST_UUID)
 
-    assert player.read_data.uuid == TEST_UUID
-    assert player.read_data.raw_data
-    assert player.read_friends.raw_data
-    assert player.read_games.raw_data
-    assert player.read_status.raw_data
+    assert player.data.uuid == TEST_UUID
+    assert player.data.raw_data
+    assert player.friends.raw_data
+    assert player.games.raw_data
+    assert player.status.raw_data
 
 
 def test_load_player_data_error(player: Player) -> None:
@@ -50,11 +50,11 @@ def test_load_player_data_error(player: Player) -> None:
 
         player.fetch_player(TEST_UUID)
 
-        assert not player.read_data.displayname
-        assert not player.read_data.raw_data
-        assert not player.read_friends.raw_data
-        assert not player.read_games.raw_data
-        assert not player.read_status.raw_data
+        assert not player.data.displayname
+        assert not player.data.raw_data
+        assert not player.friends.raw_data
+        assert not player.games.raw_data
+        assert not player.status.raw_data
 
 
 def test_jsonify_valid(player: Player) -> None:
@@ -81,7 +81,7 @@ def test_data_invalid_id(player: Player) -> None:
     with patch.object(player, "is_valid_user", return_value=False):
         player.fetch_player(TEST_UUID)
 
-    assert not player.read_data.raw_data
-    assert not player.read_friends.raw_data
-    assert not player.read_games.raw_data
-    assert not player.read_status.raw_data
+    assert not player.data.raw_data
+    assert not player.friends.raw_data
+    assert not player.games.raw_data
+    assert not player.status.raw_data

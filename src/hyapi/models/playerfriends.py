@@ -28,6 +28,7 @@ class Friend(NamedTuple):
 class PlayerFriends(NamedTuple):
     """Player Friends Object"""
 
+    success: bool = False
     uuid: str = ""
     records: List[Friend] = []
     raw_data: Dict[str, Any] = {}
@@ -37,6 +38,7 @@ class PlayerFriends(NamedTuple):
         """Create PlayerObject from dictionary"""
         records = [Friend.from_record(record) for record in data.get("records", [])]
         return cls(
+            success=data.get("success", ""),
             uuid=data.get("uuid", ""),
             records=records,
             raw_data=data,

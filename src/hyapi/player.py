@@ -39,22 +39,22 @@ class Player(AuthUser):
         self._status = PlayerStatus()
 
     @property
-    def read_data(self) -> PlayerData:
+    def data(self) -> PlayerData:
         """Player's Game Data"""
         return self._data
 
     @property
-    def read_friends(self) -> PlayerFriends:
+    def friends(self) -> PlayerFriends:
         """Player's Friends"""
         return self._friends
 
     @property
-    def read_games(self) -> PlayerGames:
+    def games(self) -> PlayerGames:
         """Player's recently played games"""
         return self._games
 
     @property
-    def read_status(self) -> PlayerStatus:
+    def status(self) -> PlayerStatus:
         """Player's recent status"""
         return self._status
 
@@ -81,7 +81,7 @@ class Player(AuthUser):
 
         data = PlayerData.from_dict(self._jsonify(result.data))
 
-        self._log_action(id, self.read_data.uuid, "Player Data")
+        self._log_action(id, data.uuid, "Player Data")
 
         return data
 
@@ -92,7 +92,7 @@ class Player(AuthUser):
 
         friends = PlayerFriends.from_dict(self._jsonify(result.data))
 
-        self._log_action(id, self.read_friends.uuid, "Player Friends")
+        self._log_action(id, friends.uuid, "Player Friends")
 
         return friends
 
@@ -103,7 +103,7 @@ class Player(AuthUser):
 
         games = PlayerGames.from_dict(self._jsonify(result.data))
 
-        self._log_action(id, self.read_friends.uuid, "Player Recent Games")
+        self._log_action(id, games.uuid, "Player Recent Games")
 
         return games
 
@@ -114,7 +114,7 @@ class Player(AuthUser):
 
         status = PlayerStatus.from_dict(self._jsonify(result.data))
 
-        self._log_action(id, self.read_friends.uuid, "Player Status")
+        self._log_action(id, status.uuid, "Player Status")
 
         return status
 
