@@ -6,6 +6,7 @@ Author: Preocts <Preocts#8196>
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from typing import Any
 from typing import Dict
 from typing import NamedTuple
@@ -48,6 +49,7 @@ class UUIDLookup:
             retries=urllib3.Retry(5, redirect=None, backoff_factor=0.1)
         )
 
+    @lru_cache(maxsize=128)
     def resolve_by_name(self, name: str) -> LookupResult:
         """Resolve a player name to UUID"""
 
@@ -55,6 +57,7 @@ class UUIDLookup:
 
         return self.__parse_resolver_data(result.data.decode("utf-8"))
 
+    @lru_cache(maxsize=128)
     def resolve_by_uuid(self, uuid: str) -> LookupResult:
         """Resolve a player UUID to name"""
 
