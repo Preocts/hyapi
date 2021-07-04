@@ -86,7 +86,7 @@ class Player(AuthUser):
     def _load_data(self, id: str) -> PlayerData:
         """Loads a player data"""
 
-        result = self._get(self.DATA_API)
+        result = self._https_get(self.DATA_API)
 
         data = PlayerData.from_dict(self._jsonify(result.data))
 
@@ -97,7 +97,7 @@ class Player(AuthUser):
     def _load_friends(self, id: str) -> PlayerFriends:
         """Loads a player's friends"""
 
-        result = self._get(self.FRIENDS_API)
+        result = self._https_get(self.FRIENDS_API)
 
         friends = PlayerFriends.from_dict(self._jsonify(result.data))
 
@@ -108,7 +108,7 @@ class Player(AuthUser):
     def _load_games(self, id: str) -> PlayerGames:
         """Loads a player's recent games"""
 
-        result = self._get(self.GAMES_API)
+        result = self._https_get(self.GAMES_API)
 
         games = PlayerGames.from_dict(self._jsonify(result.data))
 
@@ -119,7 +119,7 @@ class Player(AuthUser):
     def _load_status(self, id: str) -> PlayerStatus:
         """Loads a player's status"""
 
-        result = self._get(self.STATUS_API)
+        result = self._https_get(self.STATUS_API)
 
         status = PlayerStatus.from_dict(self._jsonify(result.data))
 
@@ -130,7 +130,7 @@ class Player(AuthUser):
     def _load_guild(self, id: str) -> PlayerGuild:
         """Loads a player's guild"""
 
-        result = self._get(self.GUILD_API)
+        result = self._https_get(self.GUILD_API)
 
         guild = PlayerGuild.from_dict(self._jsonify(result.data))
 
@@ -149,7 +149,7 @@ class Player(AuthUser):
         """Assembles HTTPS fields parameter"""
         return {"uuid": self.user_uuid, "key": self.user_apikey}
 
-    def _get(self, route: str) -> Any:
+    def _https_get(self, route: str) -> Any:
         """HTTPS GET from given API route"""
         return self.http_client.request(
             method="GET",
