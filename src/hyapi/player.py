@@ -10,6 +10,7 @@ from typing import Dict
 
 import urllib3
 from hyapi.authuser import AuthUser
+from hyapi.decayingcounter import DecayingCounter
 from hyapi.models.playerdata import PlayerData
 from hyapi.models.playerfriends import PlayerFriends
 from hyapi.models.playergames import PlayerGames
@@ -25,6 +26,7 @@ class Player(AuthUser):
     GAMES_API = "https://api.hypixel.net/recentgames"
     STATUS_API = "https://api.hypixel.net/status"
     GUILD_API = "https://api.hypixel.net/guild"
+    API_LIMIT = (120, 60)  # Max actions / seconds
 
     logger = logging.getLogger("Player")
 
@@ -34,6 +36,7 @@ class Player(AuthUser):
 
         self.http_client = urllib3.PoolManager(retries=urllib3.Retry(total=2))
         self.headers = {"Accept": "application/json"}
+        self.throttler = DecayingCounter(*self.API_LIMIT)
 
         self._data = PlayerData()
         self._friends = PlayerFriends()
@@ -68,6 +71,10 @@ class Player(AuthUser):
 
     def fetch_player(self, player_id: str) -> None:
         """Pulls information on a player by current displayname or UUID"""
+        if not self.throttler.inc():
+            self.logger.warning("Throttler active, slow down the requests")
+            return
+
         valid = self.is_valid_user(player_id)
 
         self._data = self._load_data(player_id) if valid else PlayerData()

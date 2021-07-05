@@ -88,3 +88,20 @@ def test_data_invalid_id(player: Player) -> None:
     assert not player.games.raw_data
     assert not player.status.raw_data
     assert not player.guild.raw_data
+
+
+def test_hard_throttle(player: Player) -> None:
+    """Purposely overflow the requests"""
+
+    max_requests = player.API_LIMIT[0]
+
+    assert player.API_LIMIT[0] > 0, "Completely throttled, reconsider setup"
+    assert player.API_LIMIT[1] > 10, "Suspiciously low throttle limit, reconsider test"
+
+    with patch.object(player, "is_valid_user", return_value=False) as mock_obj:
+
+        for _ in range(max_requests + 10):
+
+            player.fetch_player(TEST_UUID)
+
+        assert mock_obj.call_count == max_requests
