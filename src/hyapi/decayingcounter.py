@@ -32,8 +32,5 @@ class DecayingCounter:
 
     def _clean(self) -> None:
         """Removes expired events from front of list"""
-        while len(self._events):
-            if (time.time() - self._events[0]) > self._life_span:
-                self._events.pop(0)
-            else:
-                break
+        while len(self._events) and (time.time() - self._events[0]) > self._life_span:
+            self._events.pop(0)

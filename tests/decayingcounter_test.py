@@ -4,19 +4,19 @@ import time
 from hyapi.decayingcounter import DecayingCounter
 
 
-def test_two_second_check() -> None:
+def test_decay_check() -> None:
     """Ensures we are decaying"""
-    dcounter = DecayingCounter(2, 200)
-    loop_count = 0
+    dcounter = DecayingCounter(3, 10)
 
-    while dcounter.count < 100:
-        time.sleep(0.01)
+    for _ in range(5):
         dcounter.inc()
-        loop_count += 1
+        time.sleep(0.5)
 
-        assert dcounter.count == loop_count
+    assert dcounter.count
+    tailing = dcounter._events[-1]
 
-    time.sleep(2)
+    while dcounter.count:
+        assert dcounter._events[-1] == tailing
 
     assert dcounter.count == 0
 
