@@ -6,7 +6,7 @@ from hyapi.decayingcounter import DecayingCounter
 
 def test_decay_check() -> None:
     """Ensures we are decaying"""
-    dcounter = DecayingCounter(3, 10)
+    dcounter = DecayingCounter(10, 3)
 
     for _ in range(5):
         dcounter.inc()
@@ -23,7 +23,7 @@ def test_decay_check() -> None:
 
 def test_max_count() -> None:
     """Hold 10 items and only 10 items"""
-    dcounter = DecayingCounter(2, 10)
+    dcounter = DecayingCounter(10, 2)
 
     for _ in range(10):
         assert dcounter.inc()

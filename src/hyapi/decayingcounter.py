@@ -10,7 +10,7 @@ from typing import List
 class DecayingCounter:
     """Tracks number of events within a given life_span of seconds"""
 
-    def __init__(self, life_span: int, max_count: int) -> None:
+    def __init__(self, max_count: int, life_span: int) -> None:
         """Define the max_count number of events allowed within life_span seconds"""
         self._max = max_count
         self._events: List[float] = []
