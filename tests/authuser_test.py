@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 import vcr
 from hyapi.authuser import AuthUser
-from hyapi.authuser import LoadEnv
+from hyapi.authuser import SecretBox
 
 TEST_NAME = "jeb"
 TEST_UUID = "f498513c-e8c8-4773-be26-ecfc7ed5185d"
@@ -57,7 +57,7 @@ def test_invalid_id(auth: AuthUser) -> None:
 
 
 def test_missing_api_key() -> None:
-    with patch.object(LoadEnv, "get", return_value=""):
+    with patch.object(SecretBox, "get", return_value=""):
 
         with pytest.raises(ValueError):
 

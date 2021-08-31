@@ -8,7 +8,7 @@ import logging
 from hyapi.utils import is_valid_java_name
 from hyapi.utils import is_valid_uuid
 from hyapi.uuidlookup import UUIDLookup
-from secretbox.loadenv import LoadEnv
+from secretbox import SecretBox
 
 
 class AuthUser:
@@ -19,7 +19,7 @@ class AuthUser:
 
     def __init__(self) -> None:
         """On initialization, pulls API key from .env file"""
-        secrets = LoadEnv(auto_load=True)
+        secrets = SecretBox(auto_load=True)
         self.user_uuid = ""
         self.user_name = ""
         self.user_apikey = secrets.get("HYAPI_APIKEY")
