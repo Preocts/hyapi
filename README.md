@@ -145,7 +145,8 @@ To exit the `venv`:
 This repo has a Makefile with some quality of life scripts if your system supports `make`.
 
 - `update` : Clean all artifacts, update pip, update requirements, install everything
-- `clean-pyc` : Deletes python/mypy artifacts
-- `clean-tests` : Deletes tox, coverage, and pytest artifacts
 - `build-dist` : Build source distribution and wheel distribution
-- `stats` : Shows line counts of `*.py` code
+- `clean-artifacts` : Deletes python/mypy artifacts including eggs, cache, and pyc files
+- `clean-tests` : Deletes tox, coverage, and pytest artifacts
+- `clean-build` : Deletes build artifacts
+- `clean-all` : Runs all clean scripts
