@@ -19,8 +19,8 @@ class Friend(NamedTuple):
         """Create from inner record"""
         return cls(
             id=record.get("_id", ""),
-            uuidsender=record.get("uuidsender", ""),
-            uuidreceiver=record.get("uuidreceiver", ""),
+            uuidsender=record.get("uuidSender", ""),
+            uuidreceiver=record.get("uuidReceiver", ""),
             started=record.get("started", 0),
         )
 
