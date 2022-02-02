@@ -10,18 +10,25 @@ Hypixel API Wrapper - Early Development
 
 Picked up for pattern exercises, not sure how far I'll take this.  All name lookups are Minecraft Java Edition accounts.
 
-### Requirements
+## Install via `pip`
+
+*note: replace `vX.X.X` with desired library version. Installing from `main` can including breaking changes.*
+
+```
+python -m pip install git+https://github.com/Preocts/hyapi.git@vX.X.X
+```
+
+## Requirements
 - [Python](https://python.org) >= 3.8
-- [secretbox](https://pypi.org/project/secretbox) >= 1.1.0
-- [urllib3](https://pypi.org/project/urllib3/) >= 1.26.6
+- [secretbox](https://pypi.org/project/secretbox) >= 2.3.3
+- [urllib3](https://pypi.org/project/urllib3/) >= 1.26.8
 
 ---
 
-Install instructions: To be created
+## Internal Links
 
-```
-pip install git+https://github.com/Preocts/hyapi.git
-```
+- [Development Installation Guide](docs/development.md)
+
 
 ---
 
